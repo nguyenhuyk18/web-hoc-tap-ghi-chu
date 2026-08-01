@@ -1,0 +1,36 @@
+.homeNavLinks { display:flex;align-items:center;gap:28px }
+.homeNavLinks>a:first-child { color:#cbd5e1;font-size:14px;transition:.2s }
+.homeNavLinks>a:first-child:hover { color:#fff }
+.termsPage { min-height:calc(100vh - 76px);padding:90px 0 110px }
+.termsPage>header { max-width:720px }
+.termsPage>header small { color:#60a5fa;font:600 11px var(--font-geist-mono),monospace;letter-spacing:1.3px }
+.termsPage>header h1 { margin:14px 0;font-size:64px;line-height:1;letter-spacing:-4px }
+.termsPage>header p { color:#94a3b8;font-size:17px }
+.termSearch { display:flex;align-items:center;gap:10px;margin:45px 0 18px;padding:8px;background:#0d1422;border:1px solid #263449;border-radius:14px }
+.termSearch input { min-width:0;flex:1;padding:11px 13px;color:#f1f5f9;background:transparent;border:0;outline:0;font-size:14px }
+.termSearch button { padding:11px 17px;color:#fff;background:#2563eb;border:0;border-radius:9px;cursor:pointer;font-weight:650 }
+.termSearch a { padding:0 10px;color:#94a3b8;font-size:11px }
+.termCount { margin-bottom:18px;color:#64748b;font:500 11px var(--font-geist-mono),monospace;text-transform:uppercase }
+.termList { border-top:1px solid #263449 }
+.termList article { display:grid;grid-template-columns:65px 1fr;gap:20px;padding:28px 18px;border-bottom:1px solid #263449;transition:.2s }
+.termList article:hover { padding-left:28px;background:#0d1422 }
+.termList>article>span { color:#475569;font:500 12px var(--font-geist-mono),monospace }
+.termList h2 { margin:0 0 10px;color:#f8fafc;font-size:21px;letter-spacing:-.6px }
+.termList p { max-width:900px;margin:0;color:#aab6c8;line-height:1.7;font-size:14px }
+.termAdminTable .tableRow { grid-template-columns:1fr 2.7fr .6fr }
+.termAdminTable .tableRow>p { margin:0;color:#94a3b8;line-height:1.55;font-size:13px }
+.termEditorPage { max-width:800px }
+.termForm { display:grid;gap:24px;padding:30px;background:#0d1422;border:1px solid #263449;border-radius:16px;box-shadow:0 15px 45px #0005 }
+.termForm label { display:flex;flex-direction:column;gap:9px;color:#cbd5e1;font-size:12px;font-weight:700 }
+.termForm input,.termForm textarea { padding:14px;color:#f1f5f9;background:#080d17;border:1px solid #263449;border-radius:10px;outline:0;font:14px/1.6 var(--font-geist-sans),sans-serif;resize:vertical }
+.termForm input:focus,.termForm textarea:focus { border-color:#3b82f6;box-shadow:0 0 0 4px #1d4ed833 }
+@media(max-width:700px) {
+  .homeNavLinks { gap:14px }
+  .homeNavLinks>a:first-child { display:none }
+  .termsPage { padding-top:65px }
+  .termsPage>header h1 { font-size:48px;letter-spacing:-2.5px }
+  .termList article { grid-template-columns:38px 1fr;padding-inline:5px }
+  .termAdminTable .tableRow { grid-template-columns:1fr }
+  .termSearch { flex-wrap:wrap }
+  .termSearch a { width:100%;padding:5px 10px;text-align:center }
+}

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PublicHeader } from "@/components/PublicHeader";
 
 const networkNodes = [
   { label: "Internet", sub: "WAN", className: "internet", icon: "◎" },
@@ -13,10 +14,7 @@ const networkNodes = [
 export default function Home() {
   return (
     <main className="homeModern">
-      <nav className="nav shell homeNav">
-        <Link className="brand" href="/">NET<span>WISE</span></Link>
-        <div className="homeNavLinks"><Link href="/articles">Các bài viết</Link><Link className="articlesNavLink" href="/terms">Xem thuật ngữ <span>↗</span></Link></div>
-      </nav>
+      <PublicHeader overlay />
 
       <section className="homeHero shell">
         <div className="heroGlow glowOne" />

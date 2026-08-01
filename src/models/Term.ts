@@ -8,6 +8,4 @@ const termSchema = new Schema(
   { timestamps: true },
 );
 
-termSchema.index({ name: 1 });
-
 export const Term = models.Term ?? model("Term", termSchema);
