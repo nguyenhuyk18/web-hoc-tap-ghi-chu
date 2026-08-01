@@ -1,0 +1,42 @@
+services:
+  mongodb:
+    image: mongo:8.0
+    container_name: network-knowledge-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: knowledge_user
+      MONGO_INITDB_ROOT_PASSWORD: knowledge_password
+      MONGO_INITDB_DATABASE: network_knowledge
+    volumes:
+      - ./docker-data/mongodb:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--username", "knowledge_user", "--password", "knowledge_password", "--authenticationDatabase", "admin", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  web:
+    profiles: ["full"]
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: network-knowledge-web
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      MONGODB_URI: mongodb://knowledge_user:knowledge_password@mongodb:27017/network_knowledge?authSource=admin
+      AUTH_SECRET: ${AUTH_SECRET:-netwise-docker-secret-change-in-production}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@netwise.vn}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-Netwise@123}
+      AUTH_SECURE_COOKIE: ${AUTH_SECURE_COOKIE:-false}
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    volumes:
+      - uploads_data:/app/public/uploads
+
+volumes:
+  uploads_data:
