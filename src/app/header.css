@@ -36,3 +36,34 @@
   [data-theme="light"] .headerNav { border-color:#dbe3ef;background:#fffffff5;box-shadow:0 20px 45px #0f172a24 }
 }
 @media(max-width:420px) { .brandWord { display:none }.headerInner { padding-left:10px }.headerActions { gap:7px } }
+
+/* Admin control-center header */
+.adminTopbar { position:sticky;z-index:60;top:0;height:76px;padding:9px 20px;background:#070b14e8;border-bottom:1px solid #172033;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px) }
+.adminTopbarInner { width:min(1320px,100%);height:57px;margin:auto;display:flex;align-items:center;padding:0 9px 0 13px;border:1px solid #ffffff10;border-radius:15px;background:#0d1422;box-shadow:0 12px 35px #0004 }
+.adminBrand { min-width:205px;display:flex;align-items:center;gap:11px;padding-right:20px;border-right:1px solid #263449 }
+.adminBrandMark { width:34px;height:34px;display:grid;place-items:center;border-radius:10px;color:#fff;background:linear-gradient(145deg,#3b82f6,#1e40af);box-shadow:inset 0 1px #ffffff45,0 7px 18px #2563eb38;font-size:15px;font-weight:800 }
+.adminBrand>span:last-child { display:flex;flex-direction:column;gap:2px }.adminBrand b { color:#f8fafc;font-size:13px;letter-spacing:.2px }.adminBrand small { color:#64748b;font:600 7px var(--font-geist-mono),monospace;letter-spacing:1.4px }
+.adminNavigation { display:flex;align-items:center;gap:4px;margin-left:18px }.adminNavigation a { position:relative;height:39px;display:flex;align-items:center;gap:8px;padding:0 13px;border:1px solid transparent;border-radius:9px;color:#8492a6;font-size:12px;font-weight:600;transition:.2s }.adminNavigation a i { min-width:18px;color:#64748b;font-style:normal;font-size:13px;text-align:center }.adminNavigation a:hover { color:#e2e8f0;background:#ffffff07 }.adminNavigation a.active { color:#fff;border-color:#2563eb42;background:#2563eb17 }.adminNavigation a.active i { color:#60a5fa }.adminNavigation a.active::before { content:"";position:absolute;left:10px;right:10px;bottom:-10px;height:2px;border-radius:4px;background:#3b82f6;box-shadow:0 0 10px #3b82f6 }
+.adminTopbarActions { margin-left:auto;display:flex;align-items:center;gap:9px }.viewWebsite { height:34px;display:flex;align-items:center;gap:7px;padding:0 11px;border:1px solid #263449;border-radius:9px;color:#94a3b8;font-size:10px;font-weight:600;transition:.2s }.viewWebsite span { color:#60a5fa;font-size:13px }.viewWebsite:hover { color:#fff;border-color:#3b82f666;background:#2563eb12 }
+.adminAccount { height:38px;display:flex;align-items:center;gap:8px;padding-left:10px;border-left:1px solid #263449 }.adminAccount>span { width:30px;height:30px;display:grid;place-items:center;border-radius:9px;color:#bfdbfe;background:#172554;border:1px solid #3b82f64a;font-size:11px;font-weight:750 }.adminAccount>div { display:flex;flex-direction:column;gap:2px }.adminAccount b { color:#e2e8f0;font-size:10px }.adminAccount small { color:#64748b;font-size:8px }
+.adminTopbarActions form { margin:0 }.logoutButton { width:34px;height:34px;border:1px solid #3f2630;border-radius:9px;color:#f87171;background:#2a1018;cursor:pointer;font-size:15px;transition:.2s }.logoutButton:hover { color:#fecaca;border-color:#ef444466;background:#450a0a }
+.adminMenuButton { display:none;width:36px;height:36px;padding:8px;border:1px solid #263449;border-radius:9px;background:#111827;cursor:pointer }.adminMenuButton i { display:block;width:15px;height:1.5px;margin:3px auto;background:#cbd5e1 }
+[data-theme="light"] .adminTopbar { background:#f4f7fbe8;border-color:#e2e8f0 }
+[data-theme="light"] .adminTopbarInner { border-color:#e2e8f0;background:#fff;box-shadow:0 12px 35px #0f172a0c }
+[data-theme="light"] .adminBrand { border-color:#e2e8f0 }[data-theme="light"] .adminBrand b { color:#0f172a }
+[data-theme="light"] .adminNavigation a { color:#64748b }[data-theme="light"] .adminNavigation a:hover { color:#0f172a;background:#f1f5f9 }[data-theme="light"] .adminNavigation a.active { color:#1d4ed8;border-color:#bfdbfe;background:#eff6ff }
+[data-theme="light"] .viewWebsite { color:#64748b;border-color:#e2e8f0 }[data-theme="light"] .viewWebsite:hover { color:#1d4ed8;background:#eff6ff }
+[data-theme="light"] .adminAccount { border-color:#e2e8f0 }[data-theme="light"] .adminAccount>span { color:#1d4ed8;background:#eff6ff;border-color:#bfdbfe }[data-theme="light"] .adminAccount b { color:#0f172a }
+[data-theme="light"] .logoutButton { color:#dc2626;border-color:#fecaca;background:#fef2f2 }
+[data-theme="light"] .adminMenuButton { border-color:#cbd5e1;background:#f8fafc }[data-theme="light"] .adminMenuButton i { background:#334155 }
+@media(max-width:920px) {
+  .adminBrand { min-width:auto;border:0 }.adminBrand>span:last-child { display:none }
+  .viewWebsite,.adminAccount { display:none }
+}
+@media(max-width:650px) {
+  .adminTopbar { height:70px;padding:7px 12px }.adminTopbarInner { height:55px;padding-inline:10px }
+  .adminNavigation { position:absolute;top:69px;left:12px;right:12px;display:grid;gap:5px;margin:0;padding:8px;border:1px solid #263449;border-radius:13px;background:#0d1422f7;box-shadow:0 20px 45px #0008;opacity:0;visibility:hidden;translate:0 -8px;transition:.2s }
+  .adminMenuOpen .adminNavigation { opacity:1;visibility:visible;translate:0 0 }.adminNavigation a { height:43px }.adminNavigation a.active::before { left:4px;right:auto;top:10px;bottom:10px;width:2px;height:auto }
+  .adminMenuButton { display:block }
+  [data-theme="light"] .adminNavigation { border-color:#e2e8f0;background:#fffffff8;box-shadow:0 20px 45px #0f172a24 }
+}

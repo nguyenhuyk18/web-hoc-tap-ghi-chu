@@ -9,3 +9,6 @@ coverage
 server-test*.log
 docker-data/mongodb/*
 !docker-data/mongodb/.gitkeep
+secrets/
+*-firebase-adminsdk*.json
+firebase-service-account.json

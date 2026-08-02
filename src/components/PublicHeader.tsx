@@ -8,6 +8,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 const links = [
   { href: "/articles", label: "Bài viết" },
   { href: "/terms", label: "Thuật ngữ" },
+  { href: "/learn", label: "Học tập" },
 ];
 
 export function PublicHeader({ overlay = false }: { overlay?: boolean }) {

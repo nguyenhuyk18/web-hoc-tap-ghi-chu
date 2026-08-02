@@ -5,6 +5,7 @@ import "./globals.css";
 import "./terms.css";
 import "./theme.css";
 import "./header.css";
+import "./learn.css";
 
 export const metadata: Metadata = {
   title: "Netwise — Kiến thức mạng máy tính",

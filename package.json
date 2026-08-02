@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "migrate:firebase": "node --env-file=.env.local scripts/migrate-mongodb-to-firestore.mjs"
   },
   "dependencies": {
     "@tiptap/extension-color": "^3.29.2",
@@ -21,6 +22,7 @@
     "@tiptap/react": "^3.29.2",
     "@tiptap/starter-kit": "^3.29.2",
     "bcryptjs": "^3.0.3",
+    "firebase-admin": "^14.2.0",
     "geist": "^1.7.2",
     "jose": "^6.2.6",
     "mongoose": "latest",

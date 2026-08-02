@@ -1,20 +1,19 @@
 import { NextResponse } from "next/server";
-import { connectMongoDB } from "@/lib/mongodb";
+import { getAdminFirestore } from "@/lib/firebase-admin";
 
 export async function GET() {
   try {
-    const database = await connectMongoDB();
-    await database.connection.db?.admin().ping();
+    await getAdminFirestore().collection("_health").limit(1).get();
 
     return NextResponse.json({
       status: "ok",
-      database: "connected",
+      database: "firestore",
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    console.error("MongoDB health check failed:", error);
+    console.error("Firestore health check failed:", error);
     return NextResponse.json(
-      { status: "error", database: "disconnected" },
+      { status: "error", database: "firestore-disconnected" },
       { status: 503 },
     );
   }
