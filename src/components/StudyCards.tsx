@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
-type StudyTerm = { id: string; name: string; description: string };
+type StudyTerm = { id: string; name: string; description: string; type: string };
 
 function shuffle<T>(items: T[]) {
   const result = [...items];
@@ -14,7 +14,7 @@ function shuffle<T>(items: T[]) {
   return result;
 }
 
-export function StudyCards({ initialTerms }: { initialTerms: StudyTerm[] }) {
+export function StudyCards({ initialTerms, mode = "terms" }: { initialTerms: StudyTerm[]; mode?: "terms" | "interview" }) {
   const [terms, setTerms] = useState(initialTerms);
   const [current, setCurrent] = useState(0);
   const [flipped, setFlipped] = useState(false);
@@ -65,7 +65,7 @@ export function StudyCards({ initialTerms }: { initialTerms: StudyTerm[] }) {
     return () => window.removeEventListener("keydown", keyboard);
   });
 
-  if (!term) return <div className="studyEmpty"><span>◇</span><h2>Chưa có thuật ngữ để học</h2><p>Hãy thêm thuật ngữ trong trang quản trị trước khi bắt đầu.</p><Link href="/terms">Xem kho thuật ngữ</Link></div>;
+  if (!term) return <div className="studyEmpty"><span>◇</span><h2>Chưa có {mode === "interview" ? "câu hỏi phỏng vấn" : "thuật ngữ"} để học</h2><p>Hãy thêm nội dung trong trang quản trị trước khi bắt đầu.</p><Link href={mode === "interview" ? "/interview" : "/terms"}>Xem nội dung</Link></div>;
 
   return <div className="studyExperience">
     <div className="studyToolbar"><div><span>{current + 1}</span> / {terms.length}</div><div className="studyToolbarActions">{answered > 0 && <button className="restartButton" onClick={restartSession}>↺ Ôn lại từ đầu</button>}<button onClick={mixCards}>⤨ Xáo trộn</button></div></div>
@@ -73,8 +73,8 @@ export function StudyCards({ initialTerms }: { initialTerms: StudyTerm[] }) {
 
     <button className={`flashcard${flipped ? " flipped" : ""}`} onClick={() => setFlipped((value) => !value)} aria-label={flipped ? "Xem tên thuật ngữ" : "Xem lời giải thích"}>
       <span className="flashcardInner">
-        <span className="flashcardFace flashcardFront"><small>THUẬT NGỮ</small><b>{term.name}</b><em>Nhấn vào thẻ để xem diễn giải <i>↻</i></em></span>
-        <span className="flashcardFace flashcardBack"><small>DIỄN GIẢI</small><b>{term.name}</b><p>{term.description}</p><em>Nhấn để quay lại <i>↻</i></em></span>
+        <span className="flashcardFace flashcardFront"><small>{term.type} · {mode === "interview" ? "CÂU HỎI" : "THUẬT NGỮ"}</small><b>{term.name}</b><em>Nhấn vào thẻ để xem {mode === "interview" ? "câu trả lời" : "diễn giải"} <i>↻</i></em></span>
+        <span className="flashcardFace flashcardBack"><small>{term.type} · {mode === "interview" ? "CÂU TRẢ LỜI" : "DIỄN GIẢI"}</small><b>{term.name}</b><p>{term.description}</p><em>Nhấn để quay lại <i>↻</i></em></span>
       </span>
     </button>
 

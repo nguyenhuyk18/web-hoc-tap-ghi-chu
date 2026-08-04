@@ -20,9 +20,9 @@ export default function Home() {
         <div className="heroGlow glowOne" />
         <div className="heroGlow glowTwo" />
         <div className="homeHeroContent">
-          <div className="eyebrow"><i /> Nền tảng kiến thức mạng máy tính</div>
-          <h1>Hiểu mạng máy tính.<br /><span>Kết nối tương lai.</span></h1>
-          <p>Khám phá cách dữ liệu di chuyển, thiết bị giao tiếp và Internet vận hành qua những bài viết ngắn gọn, trực quan và dễ hiểu.</p>
+          <div className="eyebrow"><i /> Nền tảng kiến thức IT thực chiến</div>
+          <h1>Học IT có hệ thống.<br /><span>Làm chủ tương lai.</span></h1>
+          <p>Khám phá kiến thức IT Network, Tester, Frontend và Backend qua những bài viết ngắn gọn, trực quan và dễ áp dụng.</p>
           <div className="homeHeroActions">
             <Link className="heroPrimary" href="/articles">Khám phá bài viết <span>→</span></Link>
             <Link className="heroSecondary" href="/terms">Xem thuật ngữ <span>→</span></Link>

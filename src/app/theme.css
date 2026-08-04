@@ -24,6 +24,8 @@
 [data-theme="light"] .cardBody h2 { color:#0f172a }
 [data-theme="light"] .cardBody p,[data-theme="light"] .cardBody span { color:#64748b }
 [data-theme="light"] .pagination a,[data-theme="light"] .publicEmpty { color:#334155;background:#fff;border-color:#cbd5e1 }
+[data-theme="light"] .articleTypeFilters a { color:#475569;background:#fff;border-color:#dbe3ef }
+[data-theme="light"] .articleTypeFilters a:hover,[data-theme="light"] .articleTypeFilters a.active { color:#fff;background:#2563eb;border-color:#2563eb }
 [data-theme="light"] .articleDetail h1 { color:#0f172a }
 [data-theme="light"] .prose { color:#334155 }
 [data-theme="light"] .prose h2,[data-theme="light"] .prose h3,[data-theme="light"] .prose strong { color:#0f172a }
@@ -73,6 +75,9 @@
 [data-theme="light"] .tableHead { color:#64748b;background:#f8fafc }
 [data-theme="light"] .tableRow { color:#0f172a;border-color:#e2e8f0 }
 [data-theme="light"] .tableRow>span,[data-theme="light"] .termAdminTable .tableRow>p { color:#64748b }
+[data-theme="light"] .termForm select { color:#0f172a;background:#fff;border-color:#cbd5e1 }
+[data-theme="light"] .interviewSpecialtyPicker select { color:#0f172a;background:#fff;border-color:#cbd5e1 }
+[data-theme="light"] .adminTitleActions>a:first-child { color:#475569;border-color:#cbd5e1;background:#fff }
 [data-theme="light"] .editorPage .editorFields { background:#fff;border-color:#e2e8f0;box-shadow:0 14px 40px #0f172a0d }
 [data-theme="light"] .adminForm label,[data-theme="light"] .editorFields label,[data-theme="light"] .termForm label { color:#334155 }
 [data-theme="light"] .adminForm input,[data-theme="light"] .editorFields input,[data-theme="light"] .editorFields textarea,[data-theme="light"] .editorFields select,[data-theme="light"] .termForm input,[data-theme="light"] .termForm textarea { color:#0f172a;background:#fff;border-color:#cbd5e1 }

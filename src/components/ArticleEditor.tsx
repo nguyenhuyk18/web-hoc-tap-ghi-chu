@@ -14,7 +14,7 @@ import StarterKit from "@tiptap/starter-kit";
 import { FormEvent, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
-type ArticleValue = { _id?: string; title?: string; slug?: string; summary?: string; content?: string; coverImage?: string; category?: string; level?: string; published?: boolean };
+type ArticleValue = { _id?: string; title?: string; slug?: string; summary?: string; content?: string; coverImage?: string; type?: string; category?: string; level?: string; published?: boolean };
 
 const FontSize = Extension.create({
   name: "fontSize",
@@ -32,7 +32,7 @@ const FontSize = Extension.create({
   },
 });
 
-export function ArticleEditor({ article = {} }: { article?: ArticleValue }) {
+export function ArticleEditor({ article = {}, specialties }: { article?: ArticleValue; specialties: string[] }) {
   const router = useRouter(); const fileRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState(""); const [saving, setSaving] = useState(false); const [coverImage, setCoverImage] = useState(article.coverImage || "");
   const editor = useEditor({
@@ -104,6 +104,7 @@ export function ArticleEditor({ article = {} }: { article?: ArticleValue }) {
       <label>Tiêu đề *<input name="title" defaultValue={article.title} required placeholder="Ví dụ: Mô hình OSI là gì?" /></label>
       <label>Đường dẫn (để trống sẽ tự tạo)<input name="slug" defaultValue={article.slug} placeholder="mo-hinh-osi-la-gi" /></label>
       <label className="full">Mô tả ngắn *<textarea name="summary" defaultValue={article.summary} required rows={3} /></label>
+      <label>Chuyên ngành *<select name="type" defaultValue={article.type || specialties[0]} required>{specialties.map((name) => <option key={name}>{name}</option>)}</select></label>
       <label>Chủ đề<select name="category" defaultValue={article.category || "Cơ bản"}><option>Cơ bản</option><option>Giao thức</option><option>Bảo mật</option><option>Thực hành</option></select></label>
       <label>Cấp độ<select name="level" defaultValue={article.level || "Nhập môn"}><option>Nhập môn</option><option>Trung cấp</option><option>Nâng cao</option></select></label>
       <label className="full">Ảnh bìa<input type="file" accept="image/*" onChange={async (e) => { const file=e.target.files?.[0]; if(file) setCoverImage(await upload(file)); }} />{coverImage && <span className="uploadDone">✓ Đã tải ảnh bìa</span>}</label>

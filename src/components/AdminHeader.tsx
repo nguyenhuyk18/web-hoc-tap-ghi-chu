@@ -7,7 +7,9 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 
 const adminLinks = [
   { href: "/admin/articles", label: "Bài viết", icon: "▤" },
+  { href: "/admin/specialties", label: "Chuyên ngành", icon: "⌘" },
   { href: "/admin/terms", label: "Thuật ngữ", icon: "Aa" },
+  { href: "/admin/interview-questions", label: "Phỏng vấn", icon: "?" },
 ];
 
 export function AdminHeader() {

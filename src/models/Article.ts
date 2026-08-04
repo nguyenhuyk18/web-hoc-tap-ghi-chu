@@ -7,6 +7,11 @@ const articleSchema = new Schema(
     summary: { type: String, required: true },
     content: { type: String, default: "" },
     coverImage: { type: String, default: "" },
+    type: {
+      type: String,
+      default: "IT Network",
+      required: true,
+    },
     category: {
       type: String,
       enum: ["Cơ bản", "Giao thức", "Bảo mật", "Thực hành"],
@@ -23,5 +28,6 @@ const articleSchema = new Schema(
 );
 
 articleSchema.index({ published: 1, createdAt: -1 });
+articleSchema.index({ type: 1, published: 1, createdAt: -1 });
 
 export const Article = models.Article ?? model("Article", articleSchema);

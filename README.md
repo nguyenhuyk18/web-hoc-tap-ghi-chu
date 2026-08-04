@@ -23,9 +23,9 @@
    npm run dev
    ```
 
-Mở http://localhost:3000. Kiểm tra MongoDB tại http://localhost:3000/api/health.
+Mở http://localhost:3009. Kiểm tra MongoDB tại http://localhost:3009/api/health.
 
-Trang quản trị: http://localhost:3000/admin/login
+Trang quản trị: http://localhost:3009/admin/login
 
 - Email mặc định: `admin@netwise.vn`
 - Mật khẩu mặc định: `Netwise@123`

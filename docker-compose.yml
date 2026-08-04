@@ -25,7 +25,7 @@ services:
     container_name: network-knowledge-web
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "3009:3009"
     environment:
       MONGODB_URI: mongodb://knowledge_user:knowledge_password@mongodb:27017/network_knowledge?authSource=admin
       AUTH_SECRET: ${AUTH_SECRET:-netwise-docker-secret-change-in-production}

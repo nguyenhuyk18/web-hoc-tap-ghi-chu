@@ -17,13 +17,22 @@
 .termList>article>span { color:#475569;font:500 12px var(--font-geist-mono),monospace }
 .termList h2 { margin:0 0 10px;color:#f8fafc;font-size:21px;letter-spacing:-.6px }
 .termList p { max-width:900px;margin:0;color:#aab6c8;line-height:1.7;font-size:14px }
-.termAdminTable .tableRow { grid-template-columns:1fr 2.7fr .6fr }
+.termAdminTable .tableRow { grid-template-columns:1fr .8fr 2.3fr .6fr }
+.specialtyAdminTable .tableRow { grid-template-columns:1fr 2.7fr .6fr }
+.specialtyAdminTable .tableRow>p { margin:0;color:#94a3b8;line-height:1.55;font-size:13px }
+.interviewAdminTable .tableRow { grid-template-columns:1.5fr .7fr 2fr .6fr }
+.interviewAdminTable .tableRow>p { margin:0;color:#94a3b8;line-height:1.55;font-size:13px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden }
+.adminTitleActions { display:flex;align-items:center;gap:10px }.adminTitleActions>a:first-child { padding:11px 15px;border:1px solid #334155;border-radius:10px;color:#cbd5e1;font-size:12px;font-weight:650 }
+.interviewStudyPage { max-width:1000px }.interviewSpecialtyPicker { width:min(760px,100%);display:flex;align-items:end;justify-content:space-between;gap:20px;margin:0 auto 22px }.interviewSpecialtyPicker label { flex:1;display:flex;flex-direction:column;gap:8px;color:#94a3b8;font-size:11px;font-weight:700 }.interviewSpecialtyPicker select { padding:13px;color:#f1f5f9;background:#0d1422;border:1px solid #334155;border-radius:11px;outline:0 }.interviewSpecialtyPicker>span { padding-bottom:13px;color:#64748b;font:500 10px var(--font-geist-mono),monospace }
 .termAdminTable .tableRow>p { margin:0;color:#94a3b8;line-height:1.55;font-size:13px }
 .termEditorPage { max-width:800px }
 .termForm { display:grid;gap:24px;padding:30px;background:#0d1422;border:1px solid #263449;border-radius:16px;box-shadow:0 15px 45px #0005 }
 .termForm label { display:flex;flex-direction:column;gap:9px;color:#cbd5e1;font-size:12px;font-weight:700 }
-.termForm input,.termForm textarea { padding:14px;color:#f1f5f9;background:#080d17;border:1px solid #263449;border-radius:10px;outline:0;font:14px/1.6 var(--font-geist-sans),sans-serif;resize:vertical }
-.termForm input:focus,.termForm textarea:focus { border-color:#3b82f6;box-shadow:0 0 0 4px #1d4ed833 }
+.termForm input,.termForm textarea,.termForm select { padding:14px;color:#f1f5f9;background:#080d17;border:1px solid #263449;border-radius:10px;outline:0;font:14px/1.6 var(--font-geist-sans),sans-serif;resize:vertical }
+.termForm input:focus,.termForm textarea:focus,.termForm select:focus { border-color:#3b82f6;box-shadow:0 0 0 4px #1d4ed833 }
+.termTypeFilters { margin:36px 0 18px }
+.termList h2 { margin-top:5px }
+.termList article div>small { color:#60a5fa;font:600 10px var(--font-geist-mono),monospace;text-transform:uppercase;letter-spacing:.7px }
 @media(max-width:700px) {
   .homeNavLinks { gap:14px }
   .homeNavLinks>a:first-child { display:none }
@@ -31,6 +40,9 @@
   .termsPage>header h1 { font-size:48px;letter-spacing:-2.5px }
   .termList article { grid-template-columns:38px 1fr;padding-inline:5px }
   .termAdminTable .tableRow { grid-template-columns:1fr }
+  .specialtyAdminTable .tableRow { grid-template-columns:1fr }
+  .interviewAdminTable .tableRow { grid-template-columns:1fr }
+  .adminTitleActions { width:100%;flex-wrap:wrap }.interviewSpecialtyPicker { align-items:stretch;flex-direction:column }.interviewSpecialtyPicker>span { padding:0 }
   .termSearch { flex-wrap:wrap }
   .termSearch a { width:100%;padding:5px 10px;text-align:center }
 }

@@ -8,8 +8,8 @@ import "./header.css";
 import "./learn.css";
 
 export const metadata: Metadata = {
-  title: "Netwise — Kiến thức mạng máy tính",
-  description: "Học mạng máy tính từ nền tảng đến thực hành trong một lộ trình rõ ràng.",
+  title: "Netwise — Kiến thức IT thực chiến",
+  description: "Kiến thức IT Network, Tester, Frontend và Backend từ nền tảng đến thực hành.",
   icons: {
     icon: "/icon.svg",
     shortcut: "/icon.svg",

@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation";
 import { ArticleEditor } from "@/components/ArticleEditor";
-import { getAdminFirestore } from "@/lib/firebase-admin";
-import { articleFromFirestore } from "@/lib/firestore-data";
+import { connectMongoDB } from "@/lib/mongodb";
+import { Article } from "@/models/Article";
+import { getSpecialties } from "@/lib/specialties";
 
 export default async function EditArticlePage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params; const snapshot = await getAdminFirestore().collection("articles").doc(id).get(); if (!snapshot.exists) notFound();
-  const article = articleFromFirestore(snapshot); const value = { ...article, createdAt: article.createdAt.toISOString(), updatedAt: article.updatedAt.toISOString() };
-  return <section className="adminContent editorPage"><div className="adminTitle"><div><small>SOẠN THẢO</small><h1>Chỉnh sửa bài viết</h1></div></div><ArticleEditor article={value} /></section>;
+  await connectMongoDB(); const { id } = await params; const [article, specialties] = await Promise.all([Article.findById(id).lean(), getSpecialties()]); if (!article) notFound();
+  return <section className="adminContent editorPage"><div className="adminTitle"><div><small>SOẠN THẢO</small><h1>Chỉnh sửa bài viết</h1></div></div><ArticleEditor article={JSON.parse(JSON.stringify(article))} specialties={specialties.map((item) => String(item.name))} /></section>;
 }

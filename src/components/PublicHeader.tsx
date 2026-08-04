@@ -9,6 +9,7 @@ const links = [
   { href: "/articles", label: "Bài viết" },
   { href: "/terms", label: "Thuật ngữ" },
   { href: "/learn", label: "Học tập" },
+  { href: "/interview", label: "Phỏng vấn" },
 ];
 
 export function PublicHeader({ overlay = false }: { overlay?: boolean }) {
