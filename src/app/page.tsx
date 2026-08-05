@@ -1,67 +1,59 @@
 import Link from "next/link";
 import { PublicHeader } from "@/components/PublicHeader";
+import { connectMongoDB } from "@/lib/mongodb";
+import { getSpecialties } from "@/lib/specialties";
+import { Article } from "@/models/Article";
+import { InterviewQuestion } from "@/models/InterviewQuestion";
+import { Term } from "@/models/Term";
 
-const networkNodes = [
-  { label: "Internet", sub: "WAN", className: "internet", icon: "◎" },
-  { label: "Firewall", sub: "Security", className: "firewall", icon: "◇" },
-  { label: "Core Router", sub: "Gateway", className: "router", icon: "⌁" },
-  { label: "Switch", sub: "Layer 2", className: "switch", icon: "⌘" },
-  { label: "Server", sub: "10.0.0.10", className: "server", icon: "▤" },
-  { label: "Laptop", sub: "10.0.0.21", className: "laptop", icon: "▱" },
-  { label: "Mobile", sub: "10.0.0.24", className: "mobile", icon: "▯" },
-];
+export const dynamic = "force-dynamic";
 
-export default function Home() {
-  return (
-    <main className="homeModern">
-      <PublicHeader overlay />
+const icons = ["</>", "{ }", "✓", "⌁", "◎", "#"];
 
-      <section className="homeHero shell">
-        <div className="heroGlow glowOne" />
-        <div className="heroGlow glowTwo" />
-        <div className="homeHeroContent">
-          <div className="eyebrow"><i /> Nền tảng kiến thức IT thực chiến</div>
-          <h1>Học IT có hệ thống.<br /><span>Làm chủ tương lai.</span></h1>
-          <p>Khám phá kiến thức IT Network, Tester, Frontend và Backend qua những bài viết ngắn gọn, trực quan và dễ áp dụng.</p>
-          <div className="homeHeroActions">
-            <Link className="heroPrimary" href="/articles">Khám phá bài viết <span>→</span></Link>
-            <Link className="heroSecondary" href="/terms">Xem thuật ngữ <span>→</span></Link>
-          </div>
+export default async function Home() {
+  await connectMongoDB();
+  const [specialties, articles, terms, questions] = await Promise.all([
+    getSpecialties(), Article.countDocuments({ published: true }), Term.countDocuments(), InterviewQuestion.countDocuments(),
+  ]);
+
+  return <main className="itHome">
+    <PublicHeader overlay />
+
+    <section className="itHero">
+      <div className="itHeroNoise" /><div className="itHeroOrb orbBlue" /><div className="itHeroOrb orbViolet" />
+      <div className="shell itHeroGrid">
+        <div className="itHeroCopy">
+          <div className="itBadge"><i /> IT KNOWLEDGE SYSTEM <span>2026</span></div>
+          <h1>Một nơi để<br />hiểu sâu về <em>IT.</em></h1>
+          <p>Từ hạ tầng mạng đến lập trình, kiểm thử và phỏng vấn — kiến thức được hệ thống hóa để bạn học đúng trọng tâm và tiến bộ mỗi ngày.</p>
+          <div className="itHeroActions"><Link className="itPrimary" href="/articles">Bắt đầu khám phá <span>↗</span></Link><Link className="itGhost" href="/interview"><i>▶</i> Luyện phỏng vấn</Link></div>
+          <div className="itHeroStats"><div><b>{articles}</b><span>Bài viết</span></div><div><b>{terms}</b><span>Thuật ngữ</span></div><div><b>{questions}</b><span>Câu hỏi</span></div><div><b>{specialties.length}</b><span>Chuyên ngành</span></div></div>
         </div>
-        <div className="heroCodeCard" aria-hidden="true">
-          <div className="codeHead"><span /><span /><span /><b>packet.trace</b></div>
-          <div className="codeBody">
-            <p><i>01</i><span className="codeBlue">source</span> 192.168.1.10</p>
-            <p><i>02</i><span className="codeBlue">destination</span> 8.8.8.8</p>
-            <p><i>03</i><span className="codePurple">protocol</span> TCP / IP</p>
-            <p><i>04</i><span className="codeGreen">status</span> connected</p>
-            <div className="packetProgress"><span /></div>
-          </div>
-        </div>
-      </section>
 
-      <section className="networkSection" id="network-model">
-        <div className="shell">
-          <header className="networkSectionHead">
-            <div><small>NETWORK TOPOLOGY</small><h2>Một hành trình của<br />gói dữ liệu.</h2></div>
-            <p>Mỗi lần bạn mở một trang web, dữ liệu đi qua nhiều lớp thiết bị. Mô hình dưới đây minh họa cách một mạng hiện đại được kết nối.</p>
-          </header>
-
-          <div className="topologyBoard">
-            <div className="topologyStatus"><span><i /> NETWORK ONLINE</span><b>7 DEVICES</b></div>
-            <svg className="topologyLines" viewBox="0 0 1000 560" preserveAspectRatio="none" aria-hidden="true">
-              <defs><linearGradient id="flow" x1="0" x2="1"><stop stopColor="#60a5fa"/><stop offset="1" stopColor="#8b5cf6"/></linearGradient></defs>
-              <path d="M500 70 L500 150" /><path d="M500 230 L500 300" /><path d="M500 380 L500 445" />
-              <path d="M500 380 C500 420 220 400 220 465" /><path d="M500 380 C500 420 780 400 780 465" />
-              <path className="flowLine" d="M500 70 L500 150 L500 300 L500 445" />
-            </svg>
-            {networkNodes.map((node) => <div className={`topologyNode ${node.className}`} key={node.label}>
-              <div className="nodeIcon">{node.icon}<span /></div><div><b>{node.label}</b><small>{node.sub}</small></div>
-            </div>)}
-            <div className="dataPacket packetOne">DATA</div><div className="dataPacket packetTwo">01</div>
-          </div>
+        <div className="itSystem" aria-label="Hệ sinh thái kiến thức IT">
+          <div className="systemTop"><span><i /> SYSTEM ONLINE</span><b>NETWISE.OS</b></div>
+          <div className="systemCore"><span>N</span><i /><i /><i /></div>
+          <div className="systemRing ringOne" /><div className="systemRing ringTwo" />
+          <div className="systemModule moduleFrontend"><i>&lt;/&gt;</i><span><b>Frontend</b><small>UI · WEB · REACT</small></span></div>
+          <div className="systemModule moduleBackend"><i>{`{ }`}</i><span><b>Backend</b><small>API · DATABASE</small></span></div>
+          <div className="systemModule moduleTester"><i>✓</i><span><b>Tester</b><small>QA · AUTOMATION</small></span></div>
+          <div className="systemModule moduleNetwork"><i>⌁</i><span><b>IT Network</b><small>TCP/IP · SECURITY</small></span></div>
+          <div className="systemPulse pulseOne" /><div className="systemPulse pulseTwo" />
         </div>
-      </section>
-    </main>
-  );
+      </div>
+      <div className="heroTicker"><div><span>FRONTEND</span><i>◆</i><span>BACKEND</span><i>◆</i><span>TESTING</span><i>◆</i><span>NETWORK</span><i>◆</i><span>DATABASE</span><i>◆</i><span>DEVOPS</span></div></div>
+    </section>
+
+    <section className="itExplore">
+      <div className="shell">
+        <header className="itSectionHead"><div><small>CHỌN HƯỚNG ĐI CỦA BẠN</small><h2>Khám phá thế giới<br /><span>công nghệ thông tin.</span></h2></div><p>Mỗi chuyên ngành là một lộ trình kiến thức riêng. Chọn lĩnh vực bạn quan tâm và bắt đầu từ những nội dung phù hợp nhất.</p></header>
+        <div className="specialtyShowcase">
+          {specialties.map((item, index) => { const name = String(item.name); return <Link className={`specialtyTile specialtyTone${index % 4}`} href={`/articles?type=${encodeURIComponent(name)}`} key={String(item._id)}>
+            <div className="specialtyTileTop"><span>{String(index + 1).padStart(2, "0")}</span><i>↗</i></div><div className="specialtyIcon">{icons[index % icons.length]}</div><div><h3>{name}</h3><p>{String(item.description || "Khám phá bài viết, thuật ngữ và kiến thức thực hành trong chuyên ngành này.")}</p></div><small>XEM KIẾN THỨC <b>→</b></small>
+          </Link>; })}
+        </div>
+        <div className="learningStrip"><div><span className="stripIcon">◇</span><div><small>HỌC THEO CÁCH CỦA BẠN</small><h3>Đọc. Ghi nhớ. Thực hành. Phỏng vấn.</h3></div></div><nav><Link href="/terms">Tra thuật ngữ <span>→</span></Link><Link href="/learn">Học flashcard <span>→</span></Link><Link href="/interview">Ôn phỏng vấn <span>→</span></Link></nav></div>
+      </div>
+    </section>
+  </main>;
 }

@@ -6,6 +6,9 @@ import "./terms.css";
 import "./theme.css";
 import "./header.css";
 import "./learn.css";
+import "./home.css";
+import "./subjects.css";
+import "./syntax.css";
 
 export const metadata: Metadata = {
   title: "Netwise — Kiến thức IT thực chiến",

@@ -9,6 +9,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@tiptap/extension-code-block-lowlight": "^3.29.2",
     "@tiptap/extension-color": "^3.29.2",
     "@tiptap/extension-font-family": "^3.29.2",
     "@tiptap/extension-highlight": "^3.29.2",
@@ -23,6 +24,7 @@
     "bcryptjs": "^3.0.3",
     "geist": "^1.7.2",
     "jose": "^6.2.6",
+    "lowlight": "^3.3.0",
     "mongoose": "latest",
     "next": "latest",
     "react": "latest",

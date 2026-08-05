@@ -30,4 +30,9 @@ const articleSchema = new Schema(
 articleSchema.index({ published: 1, createdAt: -1 });
 articleSchema.index({ type: 1, published: 1, createdAt: -1 });
 
-export const Article = models.Article ?? model("Article", articleSchema);
+const cachedArticle = models.Article;
+if (cachedArticle && !cachedArticle.schema.path("type")) {
+  cachedArticle.schema.add({ type: { type: String, required: true, default: "IT Network", trim: true } });
+}
+
+export const Article = cachedArticle ?? model("Article", articleSchema);

@@ -1,0 +1,9 @@
+import { NextRequest, NextResponse } from "next/server";
+import { getSession } from "@/lib/auth";
+import { makeSlug } from "@/lib/articles";
+import { connectMongoDB } from "@/lib/mongodb";
+import { CourseNote } from "@/models/CourseNote";
+import { UniversitySubject } from "@/models/UniversitySubject";
+type Context={params:Promise<{id:string}>};
+export async function PUT(request:NextRequest,{params}:Context){ if(!(await getSession())) return NextResponse.json({error:"Chưa đăng nhập"},{status:401}); try{ await connectMongoDB(); const {id}=await params; const body=await request.json(); const slug=makeSlug(body.slug||body.title||""); if(!body.title?.trim()||!body.summary?.trim()||!body.content?.trim()||!slug) throw new Error("Vui lòng nhập đủ tiêu đề, mô tả và nội dung"); if(!await UniversitySubject.exists({_id:body.subjectId})) throw new Error("Môn học không hợp lệ"); if(await CourseNote.exists({subjectId:body.subjectId,slug,_id:{$ne:id}})) throw new Error("Đường dẫn note đã tồn tại trong môn học này"); const note=await CourseNote.findByIdAndUpdate(id,{subjectId:body.subjectId,title:body.title.trim(),slug,summary:body.summary.trim(),content:body.content,published:Boolean(body.published)},{new:true,runValidators:true}); if(!note) return NextResponse.json({error:"Không tìm thấy note"},{status:404}); return NextResponse.json({note}); }catch(error){return NextResponse.json({error:error instanceof Error?error.message:"Không thể cập nhật note"},{status:400});}}
+export async function DELETE(_:NextRequest,{params}:Context){ if(!(await getSession())) return NextResponse.json({error:"Chưa đăng nhập"},{status:401}); await connectMongoDB(); const {id}=await params; const note=await CourseNote.findByIdAndDelete(id); if(!note) return NextResponse.json({error:"Không tìm thấy note"},{status:404}); return NextResponse.json({success:true}); }

@@ -12,3 +12,4 @@ docker-data/mongodb/*
 secrets/
 *-firebase-adminsdk*.json
 firebase-service-account.json
+.env.vercel.example

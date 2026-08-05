@@ -91,11 +91,16 @@ export function ArticleEditor({ article = {}, specialties }: { article?: Article
     catch (e) { setError(e instanceof Error ? e.message : "Không thể tải ảnh"); }
   }
   async function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault(); setSaving(true); setError(""); const data = Object.fromEntries(new FormData(event.currentTarget));
-    const body = { ...data, content: editor?.getHTML(), coverImage, published: data.published === "on" };
-    const response = await fetch(article._id ? `/api/articles/${article._id}` : "/api/articles", { method: article._id ? "PUT" : "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
-    const result = await response.json(); setSaving(false); if (!response.ok) return setError(result.error);
-    router.replace("/admin/articles");
+    event.preventDefault(); setSaving(true); setError("");
+    try {
+      const data = Object.fromEntries(new FormData(event.currentTarget));
+      const body = { ...data, content: editor?.getHTML(), coverImage, published: data.published === "on" };
+      const response = await fetch(article._id ? `/api/articles/${article._id}` : "/api/articles", { method: article._id ? "PUT" : "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+      const result = await response.json().catch(() => ({ error: "Máy chủ trả về dữ liệu không hợp lệ" }));
+      if (!response.ok) throw new Error(result.error || "Không thể lưu bài viết");
+      router.replace("/admin/articles"); router.refresh();
+    } catch (reason) { setError(reason instanceof Error ? reason.message : "Không thể kết nối máy chủ"); }
+    finally { setSaving(false); }
   }
   const setLink = () => { const url = window.prompt("Nhập đường dẫn liên kết:", editor?.getAttributes("link").href || "https://"); if (url === null) return; if (!url) editor?.chain().focus().unsetLink().run(); else editor?.chain().focus().extendMarkRange("link").setLink({ href: url }).run(); };
   const setFontSize = (size: string) => editor?.chain().focus().setMark("textStyle", { fontSize: size }).run();
@@ -137,6 +142,6 @@ export function ArticleEditor({ article = {}, specialties }: { article?: Article
     </div>
     <label className="publishCheck"><input type="checkbox" name="published" defaultChecked={article.published} /> Xuất bản để mọi người có thể xem</label>
     {error && <p className="formError">{error}</p>}
-    <div className="formActions"><button type="button" onClick={() => router.back()}>Hủy</button><button className="primary" disabled={saving}>{article._id ? "Lưu thay đổi" : "Tạo bài viết"}</button></div>
+    <div className="formActions"><button type="button" onClick={() => router.back()}>Hủy</button><button className="primary" disabled={saving}>{saving ? "Đang lưu..." : article._id ? "Lưu thay đổi" : "Tạo bài viết"}</button></div>
   </form>;
 }

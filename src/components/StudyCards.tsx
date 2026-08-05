@@ -74,7 +74,7 @@ export function StudyCards({ initialTerms, mode = "terms" }: { initialTerms: Stu
     <button className={`flashcard${flipped ? " flipped" : ""}`} onClick={() => setFlipped((value) => !value)} aria-label={flipped ? "Xem tên thuật ngữ" : "Xem lời giải thích"}>
       <span className="flashcardInner">
         <span className="flashcardFace flashcardFront"><small>{term.type} · {mode === "interview" ? "CÂU HỎI" : "THUẬT NGỮ"}</small><b>{term.name}</b><em>Nhấn vào thẻ để xem {mode === "interview" ? "câu trả lời" : "diễn giải"} <i>↻</i></em></span>
-        <span className="flashcardFace flashcardBack"><small>{term.type} · {mode === "interview" ? "CÂU TRẢ LỜI" : "DIỄN GIẢI"}</small><b>{term.name}</b><p>{term.description}</p><em>Nhấn để quay lại <i>↻</i></em></span>
+        <span className="flashcardFace flashcardBack"><small>{term.type} · {mode === "interview" ? "CÂU TRẢ LỜI" : "DIỄN GIẢI"}</small><b>{term.name}</b><span className="richTextContent flashcardRichText" dangerouslySetInnerHTML={{ __html: term.description }} /><em>Nhấn để quay lại <i>↻</i></em></span>
       </span>
     </button>
 

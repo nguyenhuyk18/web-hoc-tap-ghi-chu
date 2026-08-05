@@ -1,0 +1,7 @@
+import Link from "next/link";
+import { PublicHeader } from "@/components/PublicHeader";
+import { connectMongoDB } from "@/lib/mongodb";
+import { UniversitySubject } from "@/models/UniversitySubject";
+import { CourseNote } from "@/models/CourseNote";
+export const dynamic="force-dynamic";
+export default async function SubjectsPage(){await connectMongoDB();const subjects=await UniversitySubject.find().sort({createdAt:-1}).lean();const counts=await CourseNote.aggregate([{$match:{published:true}},{$group:{_id:"$subjectId",count:{$sum:1}}}]);const map=new Map(counts.map(item=>[String(item._id),Number(item.count)]));return <div className="publicSite"><PublicHeader/><main className="subjectsPage shell"><header><small>KHÔNG GIAN ĐẠI HỌC</small><h1>Môn học &amp; ghi chú</h1><p>Hệ thống hóa kiến thức trên giảng đường bằng note, ví dụ thực tế và code mẫu dễ tra cứu.</p></header>{!subjects.length?<div className="publicEmpty">Chưa có môn học nào được tạo.</div>:<div className="subjectGrid">{subjects.map((item,index)=><Link className="subjectCard" href={`/subjects/${item.slug}`} key={String(item._id)} style={{"--subject-color":String(item.color||"#2563eb")} as React.CSSProperties}><div><span>{String(index+1).padStart(2,"0")}</span><b>{String(item.code||"MÔN HỌC")}</b></div><h2>{String(item.name)}</h2><p>{String(item.description||"Tổng hợp note và kiến thức quan trọng của môn học.")}</p><footer><span>{map.get(String(item._id))||0} note</span><i>Khám phá →</i></footer></Link>)}</div>}</main></div>}

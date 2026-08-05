@@ -3,6 +3,7 @@ import { getSession } from "@/lib/auth";
 import { connectMongoDB } from "@/lib/mongodb";
 import { Term } from "@/models/Term";
 import { Specialty } from "@/models/Specialty";
+import { isRichTextEmpty } from "@/lib/rich-text";
 
 export async function GET(request: NextRequest) {
   await connectMongoDB(); const page = Math.max(1, Number(request.nextUrl.searchParams.get("page")) || 1);
@@ -18,7 +19,7 @@ export async function POST(request: NextRequest) {
   if (!(await getSession())) return NextResponse.json({ error: "Chưa đăng nhập" }, { status: 401 });
   try {
     await connectMongoDB(); const { name, description, type } = await request.json();
-    if (!name?.trim() || !description?.trim()) throw new Error("Vui lòng nhập tên thuật ngữ và diễn giải");
+    if (!name?.trim() || isRichTextEmpty(description)) throw new Error("Vui lòng nhập tên thuật ngữ và diễn giải");
     if (!type || !(await Specialty.exists({ name: type }))) throw new Error("Chuyên ngành không hợp lệ");
     const term = await Term.create({ name, description, type }); return NextResponse.json({ term }, { status: 201 });
   } catch (error) {

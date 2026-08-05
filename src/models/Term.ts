@@ -9,4 +9,12 @@ const termSchema = new Schema(
   { timestamps: true },
 );
 
-export const Term = models.Term ?? model("Term", termSchema);
+const cachedTerm = models.Term;
+
+// Next.js giữ model Mongoose giữa các lần hot reload. Khi schema vừa được mở
+// rộng, bổ sung path mới vào model đang cache để Mongoose không loại bỏ `type`.
+if (cachedTerm && !cachedTerm.schema.path("type")) {
+  cachedTerm.schema.add({ type: { type: String, required: true, default: "IT Network", trim: true } });
+}
+
+export const Term = cachedTerm ?? model("Term", termSchema);

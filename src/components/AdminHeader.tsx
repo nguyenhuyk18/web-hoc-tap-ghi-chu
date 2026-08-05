@@ -10,6 +10,7 @@ const adminLinks = [
   { href: "/admin/specialties", label: "Chuyên ngành", icon: "⌘" },
   { href: "/admin/terms", label: "Thuật ngữ", icon: "Aa" },
   { href: "/admin/interview-questions", label: "Phỏng vấn", icon: "?" },
+  { href: "/admin/subjects", label: "Môn học", icon: "◇" },
 ];
 
 export function AdminHeader() {

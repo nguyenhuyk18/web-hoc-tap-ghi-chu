@@ -76,6 +76,7 @@
 [data-theme="light"] .tableRow { color:#0f172a;border-color:#e2e8f0 }
 [data-theme="light"] .tableRow>span,[data-theme="light"] .termAdminTable .tableRow>p { color:#64748b }
 [data-theme="light"] .termForm select { color:#0f172a;background:#fff;border-color:#cbd5e1 }
+[data-theme="light"] .compactWordEditor,[data-theme="light"] .compactWordEditor .tiptap { color:#0f172a;background:#fff;border-color:#cbd5e1 }[data-theme="light"] .compactToolbar { background:#f8fafc;border-color:#cbd5e1 }[data-theme="light"] .compactToolbar button,[data-theme="light"] .compactToolbar select,[data-theme="light"] .compactColor,[data-theme="light"] .compactHighlight { color:#334155;background:#fff;border-color:#cbd5e1 }[data-theme="light"] .richTextContent { color:#475569 }
 [data-theme="light"] .interviewSpecialtyPicker select { color:#0f172a;background:#fff;border-color:#cbd5e1 }
 [data-theme="light"] .adminTitleActions>a:first-child { color:#475569;border-color:#cbd5e1;background:#fff }
 [data-theme="light"] .editorPage .editorFields { background:#fff;border-color:#e2e8f0;box-shadow:0 14px 40px #0f172a0d }

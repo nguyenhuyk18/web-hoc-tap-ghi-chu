@@ -3,13 +3,14 @@ import { getSession } from "@/lib/auth";
 import { connectMongoDB } from "@/lib/mongodb";
 import { Term } from "@/models/Term";
 import { Specialty } from "@/models/Specialty";
+import { isRichTextEmpty } from "@/lib/rich-text";
 
 type Context = { params: Promise<{ id: string }> };
 export async function PUT(request: NextRequest, { params }: Context) {
   if (!(await getSession())) return NextResponse.json({ error: "Chưa đăng nhập" }, { status: 401 });
   try {
     await connectMongoDB(); const { id } = await params; const { name, description, type } = await request.json();
-    if (!name?.trim() || !description?.trim()) throw new Error("Vui lòng nhập đủ thông tin");
+    if (!name?.trim() || isRichTextEmpty(description)) throw new Error("Vui lòng nhập đủ thông tin");
     if (!type || !(await Specialty.exists({ name: type }))) throw new Error("Chuyên ngành không hợp lệ");
     const term = await Term.findByIdAndUpdate(id, { name, description, type }, { new: true, runValidators: true });
     if (!term) return NextResponse.json({ error: "Không tìm thấy thuật ngữ" }, { status: 404 });
