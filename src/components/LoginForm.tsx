@@ -9,10 +9,13 @@ export function LoginForm() {
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); setLoading(true); setError("");
     const data = new FormData(event.currentTarget);
-    const response = await fetch("/api/auth/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(Object.fromEntries(data)) });
-    const result = await response.json();
-    if (!response.ok) { setLoading(false); return setError(result.error); }
-    router.replace("/admin/articles");
+    try {
+      const response = await fetch("/api/auth/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(Object.fromEntries(data)) });
+      const result = await response.json().catch(() => ({ error: "Máy chủ trả về phản hồi không hợp lệ" }));
+      if (!response.ok) return setError(result.error || "Không thể đăng nhập");
+      router.replace("/admin/articles"); router.refresh();
+    } catch { setError("Không thể kết nối tới máy chủ"); }
+    finally { setLoading(false); }
   }
   return <form className="adminForm loginForm" onSubmit={submit}>
     <label>Email<input name="email" type="email" defaultValue="admin@netwise.vn" required /></label>
